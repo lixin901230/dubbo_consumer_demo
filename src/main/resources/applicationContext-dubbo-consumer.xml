@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+    <dubbo:application name="dubbo_consumer_demo"  />
+ 
+    <!-- 使用multicast广播注册中心暴露发现服务地址
+	    	为了减少广播量，Dubbo缺省使用单播发送提供者地址信息给消费者，
+	    	如果一个机器上同时启了多个消费者进程，消费者需声明unicast=false，否则只会有一个消费者能收到消息
+	<dubbo:registry address="multicast://224.5.6.7:1234?unicast=false"/> 或下面方式
+	<dubbo:registry address="multicast://224.5.6.7:1234">
+		<dubbo:parameter key="unicast" value="false"/>
+	</dubbo:registry> -->
+	
+    
+    <!-- 使用zookeeper注册中心暴露发现服务地址（通过zookeeper订阅提供者注册的url地址） -->
+    <!-- <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/> 或下面方式 -->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" />
+ 
+    <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
+<!--     <dubbo:reference id="demoService" interface="com.lx.dubbo.demo.service.DemoService"/> -->
+    
+    <!-- 引入标准hessian协议远程调用接口（注意：此处配置的url必须是hessian协议），生成远程服务代理，可以和本地bean一样使用demoService -->
+<!--     <dubbo:reference id="helloService" interface="com.lx.hessian.service.IHelloService" url="hessian://localhost:8080/hessian_1_server/hello"/> -->
+
+	<!-- 消费方用Dubbo的RMI协议调用  提供者（基于Dubbo的RMI协议 或 标准的RMI协议）的远程接口服务 -->
+<!--     <dubbo:reference id="rmiService" interface="com.lx.dubbo.demo.service.IRmiService"/> -->
+    
+    <!-- 消费方 采用 HTTP 协议调用远程接口服务（服务方采用Spring的HttpInvoker实现） -->
+<!--     <dubbo:reference id="httpInvokerService" interface="com.lx.dubbo.demo.service.IHttpInvokerService"/> -->
+    
+    <!-- 消费方 采用 WebService 协议调用远程接口服务（服务方采用webservice的 cxf 实现） -->
+    <dubbo:reference id="cxfWebService" interface="com.lx.dubbo.demo.service.ICxfWebService" url="webservice://localhost:8080/provider/dubbo/dubbo_http/webservice"/>
+</beans>
