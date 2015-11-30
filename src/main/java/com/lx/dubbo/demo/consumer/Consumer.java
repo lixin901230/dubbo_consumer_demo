@@ -2,8 +2,11 @@ package com.lx.dubbo.demo.consumer;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.lx.dubbo.demo.service.DemoService;
 import com.lx.dubbo.demo.service.ICxfWebService;
+import com.lx.dubbo.demo.service.IHttpInvokerService;
 import com.lx.dubbo.demo.service.IRmiService;
+import com.lx.hessian.service.IHelloService;
 
 /**
  * 服务消费者
@@ -19,12 +22,12 @@ public class Consumer {
         /**
          * 1、基于dubbo协议：调用标准 dubbo 协议的远程接口服务
          */
-//        DemoService demoService = (DemoService)context.getBean("demoService"); // 获取远程服务代理
-//        String hello = demoService.sayHello("dubbo service"); // 执行远程方法
-//        System.out.println( hello ); // 显示调用结果
+        DemoService demoService = (DemoService)context.getBean("demoService"); // 获取远程服务代理
+        String hello = demoService.sayHello("dubbo service"); // 执行远程方法
+        System.out.println( hello ); // 显示调用结果
         
         /**
-         * 注意：需要部署启动 hessian服务发布web项目： hessian_1_server 来发布IHelloService远程接口服务
+         * 注意：需要部署启动 hessian服务发布web项目： hessian_server 来发布IHelloService远程接口服务
          * 2、基于标准hessian协议：调用标准  hessian 协议的远程接口服务
          */
 //        IHelloService helloService = (IHelloService)context.getBean("helloService"); // 获取纯hessian协议的远程服务
@@ -48,9 +51,9 @@ public class Consumer {
         /**
          * 调用Cxf webservice 协议远程接口服务
          */
-        ICxfWebService cxfWebService = (ICxfWebService) context.getBean("cxfWebService"); // 获取基于dubbo的WebService协议远程接口服务
-        String hello5 = cxfWebService.sayHello("dubbo cxfWebService service"); // 执行远程方法
-        System.out.println( hello5 ); // 显示调用结果        
+//        ICxfWebService cxfWebService = (ICxfWebService) context.getBean("cxfWebService"); // 获取基于dubbo的WebService协议远程接口服务
+//        String hello5 = cxfWebService.sayHello("dubbo cxfWebService service"); // 执行远程方法
+//        System.out.println( hello5 ); // 显示调用结果        
         
     }
 }

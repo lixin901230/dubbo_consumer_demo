@@ -22,9 +22,10 @@
     <dubbo:registry address="zookeeper://127.0.0.1:2181" />
  
     <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
-<!--     <dubbo:reference id="demoService" interface="com.lx.dubbo.demo.service.DemoService"/> -->
+    <dubbo:reference id="demoService" interface="com.lx.dubbo.demo.service.DemoService"/>
     
-    <!-- 引入标准hessian协议远程调用接口（注意：此处配置的url必须是hessian协议），生成远程服务代理，可以和本地bean一样使用demoService -->
+    <!-- （注意：下面helloService是另一个纯hessian示例demo（hessian_server示例）发布的纯hessian协议的服务接口，为了测试 提供方用标准Hessian暴露服务，消费方用Dubbo的Hessian协议调用）
+    	引入标准hessian协议远程调用接口（注意：此处配置的url必须是hessian协议），生成远程服务代理，可以和本地bean一样使用demoService -->
 <!--     <dubbo:reference id="helloService" interface="com.lx.hessian.service.IHelloService" url="hessian://localhost:8080/hessian_1_server/hello"/> -->
 
 	<!-- 消费方用Dubbo的RMI协议调用  提供者（基于Dubbo的RMI协议 或 标准的RMI协议）的远程接口服务 -->
@@ -34,5 +35,5 @@
 <!--     <dubbo:reference id="httpInvokerService" interface="com.lx.dubbo.demo.service.IHttpInvokerService"/> -->
     
     <!-- 消费方 采用 WebService 协议调用远程接口服务（服务方采用webservice的 cxf 实现） -->
-    <dubbo:reference id="cxfWebService" interface="com.lx.dubbo.demo.service.ICxfWebService" url="webservice://localhost:8080/provider/dubbo/dubbo_http/webservice"/>
+<!--     <dubbo:reference id="cxfWebService" interface="com.lx.dubbo.demo.service.ICxfWebService" url="webservice://localhost:8080/provider/dubbo/dubbo_http/webservice"/> -->
 </beans>
